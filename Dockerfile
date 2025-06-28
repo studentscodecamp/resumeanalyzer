@@ -14,5 +14,3 @@ RUN mvn package -DskipTests
 
 # Run the JAR file (replace with your actual JAR name if different)
 CMD ["java", "-jar", "target/resumeanalyzer-0.0.1-SNAPSHOT.jar"]
-
-RUN python -m nltk.downloader stopwords
