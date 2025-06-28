@@ -1,0 +1,64 @@
+Summary of Changes and Important Notes:
+New Models & DTOs:
+
+Resume.java: Stores resume content and metadata.
+JobDescription.java: Stores job details.
+AnalysisResult.java: Stores the comprehensive analysis outcome for persistence.
+ResumeUploadResponse.java: For responses to resume uploads.
+JobDescriptionRequest.java/JobDescriptionResponse.java: For job description CRUD.
+AnalysisRequest.java: For requesting an analysis by resume/job IDs.
+AnalysisResponse.java: Updated to include strengths, weaknesses, recommendations as per your Angular AnalysisResponse interface.
+AnalysisResultResponse.java: For showing simplified analysis results on the dashboard.
+Firebase/Firestore Simulation:
+
+FirebaseService.java: This is a simulated Firestore service using in-memory ConcurrentHashMaps. It's designed to let the application compile and run without needing a real Firebase project setup or Admin SDK credentials immediately.
+Crucial for Production: For a real production application, you would replace the in-memory logic in FirebaseService with calls to the Firebase Admin SDK (after adding firebase-admin dependency to pom.xml and configuring a service account key).
+The Repository classes (ResumeRepository, JobDescriptionRepository, AnalysisResultRepository) now use this FirebaseService for data operations, keeping the business logic layer clean.
+New Services:
+
+ResumeService.java: Handles resume-specific logic, including calling FileTextExtractor.
+JobDescriptionService.java: Handles job description CRUD operations.
+AnalysisService.java: Handles CRUD operations for saved analysis results.
+ResumeAnalyzerService.java: Enhanced to include a second LLM call (via generateQualitativeAnalysis method) to generate strengths, weaknesses, and recommendations based on the overall analysis.
+New Controllers:
+
+ResumeController.java: Handles /api/resumes/upload (for file upload), /api/resumes/{id} (GET, DELETE).
+JobDescriptionController.java: Handles /api/jobs (POST, GET), /api/jobs/{id} (GET, PUT, DELETE).
+AnalysisController.java: Handles /api/analysis (POST to initiate analysis, GET for historical results), /api/analysis/{id} (GET, DELETE).
+File Text Extraction Utility:
+
+FileTextExtractor.java: A new utility class responsible for extracting text from different file types (.pdf implemented, .docx and .doc are simulated with placeholders).
+Action Required: You MUST implement the actual text extraction logic for DOCX and DOC files using Apache POI, and add the corresponding POI dependencies to your pom.xml if you need real parsing for these formats.
+pom.xml:
+
+Added commons-fileupload for CommonsMultipartResolver.
+Added apache.pdfbox for PDF text extraction.
+Commented out apache.poi dependencies, which you'll need if you implement DOC/DOCX parsing.
+application.properties:
+
+Ensures gemini.api.url and gemini.api.key are configured. Remember to replace YOUR_GEMINI_API_KEY_HERE with your actual key.
+To Get This Backend Running:
+Download/Create Project: If you haven't already, create a new Spring Boot project (e.g., using Spring Initializr, selecting Java 17 and Spring Web dependency).
+Organize Files: Place each .java file into its correct package directory under src/main/java/com/resumeanalyzer. Place pom.xml at the root and application.properties in src/main/resources.
+Update API Key: Open src/main/resources/application.properties and replace YOUR_GEMINI_API_KEY_HERE with your actual Gemini API key.
+Build: Open your terminal in the project root and run mvn clean install.
+Run: Execute mvn spring-boot:run from the terminal, or run the ResumeAnalyzerApplication.java file directly from your IDE.
+
+
+
+Please fill out these fields to create a new job description:
+
+Job Title:
+Senior Java Developer
+
+Description:
+We are seeking a highly skilled and experienced Senior Java Developer with over 4 years of professional experience to join our dynamic team. The ideal candidate will be a results-oriented individual with unmatched coding skills and testing expertise, passionate about building scalable client-server web applications and designing game-changing e-commerce solutions. Key Responsibilities: Design and develop robust and high-performance Java-powered applications for our e-commerce platform, focusing on decreasing startup times and improving application performance. Utilize advanced technical skills to deliver specifications, implement complex program changes, write comprehensive unit test scripts, and maintain detailed documentation. Support the entire software development lifecycle, including quality assurance, user acceptance testing, and post-implementation follow-up. Continuously identify and improve code inefficiencies to enhance app stability and overall software quality. Implement and maintain CI/CD pipelines utilizing DevOps practices and agile principles, specifically leveraging tools like Jenkins. Develop automated scripts to identify and resolve low-performing workflows. Mentor and provide technical guidance to junior Java developers in the development of enterprise applications using J2EE and Spring Boot. Lead technical initiatives and contribute to project success, with potential for project management responsibilities.
+
+Required Skills (comma separated):
+Java, Spring, Spring Boot, J2EE, HTML, CSS, JavaScript, SQL, RESTful APIs, SOAP, Maven, Git, JVM, Eclipse, performance optimization, code quality
+
+Preferred Skills (comma separated):
+Building Scalable Java Microservices, Spring Professional, Professional Scrum Master, Oracle Certified Professional Java SE 8 Programmer, Node.js, Bootstrap, PHP, JQuery, JSF, Apache Struts, Servlets, Java Naming and Directory Interface, WebLogic, Software Engineering, Cisco, problem-solving, training, tutoring
+
+Experience Level:
+Senior Level
