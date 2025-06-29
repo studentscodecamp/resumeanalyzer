@@ -18,7 +18,11 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/jobs")
-@CrossOrigin(origins = "http://localhost:4200") // Allow requests from your Angular frontend
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://resume-analyzer-72te.onrender.com"
+})
+
 public class JobDescriptionController {
 
     private final JobDescriptionService jobDescriptionService;

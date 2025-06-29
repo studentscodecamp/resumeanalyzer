@@ -3,21 +3,14 @@ package com.resumeanalyzer.controller;
 
 import com.resumeanalyzer.dto.AnalysisResponse;
 import com.resumeanalyzer.dto.AnalysisResultResponse;
-// Corrected: Using AnalysisRequestPayload consistent with your backend DTOs
 import com.resumeanalyzer.dto.AnalysisRequestPayload;
 import com.resumeanalyzer.model.AnalysisResult;
-import com.resumeanalyzer.model.JobDescription;
-import com.resumeanalyzer.model.Resume;
 import com.resumeanalyzer.service.AnalysisService;
 import com.resumeanalyzer.service.JobDescriptionService;
-// Removed ResumeAnalyzerService import as it's now orchestrated by AnalysisService
-// import com.resumeanalyzer.service.ResumeAnalyzerService;
 import com.resumeanalyzer.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +20,11 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/analysis")
-@CrossOrigin(origins = "http://localhost:4200") // Allow requests from your Angular frontend
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://resume-analyzer-72te.onrender.com"
+})
+
 public class AnalysisController {
 
     // Removed ResumeAnalyzerService as it's now internally used by AnalysisService

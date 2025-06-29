@@ -17,7 +17,11 @@ import java.time.Instant; // Ensure Instant is used for dates
  */
 @RestController
 @RequestMapping("/api/resumes")
-@CrossOrigin(origins = "http://localhost:4200") // Allow Angular frontend access
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://resume-analyzer-72te.onrender.com"
+})
+
 public class ResumeController {
 
     private final ResumeService resumeService;
